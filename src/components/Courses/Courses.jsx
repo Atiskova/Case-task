@@ -1,7 +1,8 @@
 // import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+// import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { getCourses } from 'redux/operation';
 import { selectCourses } from 'redux/selectors';
 import { List, Item, Image, Title, Text, Span } from './Courses.styled';
@@ -9,7 +10,7 @@ import { List, Item, Image, Title, Text, Span } from './Courses.styled';
 const Courses = () => {
   const courses = useSelector(selectCourses);
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation();
 
   useEffect(() => {
     dispatch(getCourses());
@@ -20,7 +21,8 @@ const Courses = () => {
       <List>
         {courses.map(course => (
           <Item key={course.id}>
-            <NavLink state={{ from: location }} to={'/:' + course.id}></NavLink>
+            {/* <NavLink state={{ from: location }} to={'/:' + course.id}></NavLink> */}
+            <NavLink to={`/${course.id}`}>
             <Image
               src={course.previewImageLink + '/cover.webp'}
               alt="{course.title}"
@@ -41,6 +43,7 @@ const Courses = () => {
                 Rating: <Span>{course.rating}</Span>
               </Text>
             )}
+            </NavLink>
           </Item>
         ))}
       </List>

@@ -1,8 +1,8 @@
 {
-  "name": "case-task",
+  "name": "react-homework-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Atiskova.github.io/case-task/",
+  "homepage": "https://atiskova.github.io/Case-task/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.3",
