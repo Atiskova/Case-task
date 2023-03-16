@@ -25,7 +25,7 @@ const Course = () => {
 
       <h1>{title}</h1>
       <ReactPlayer
-        // url={{lessons && lessons[0]?.link}}
+        url={(lessons && lessons[0]?.link)}
         playing
       />
 
