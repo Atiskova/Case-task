@@ -13,12 +13,12 @@ const getToken = async () => {
 
 export const getCourses = async () => {
   await getToken();
-  const response = await axios.get('/core/preview-courses');
-  return response.data.courses;
+  const { data } = await axios.get('/core/preview-courses');
+return data.courses;
 };
 
-export const getCourse = async courseId => {
+export const getCourse = async id => {
   await getToken();
-  const response = await axios.get(`/core/preview-courses/${courseId}`);
-  return response.data;
+  const { data } = await axios.get(`/core/preview-courses/${id}`);
+  return data;
 };

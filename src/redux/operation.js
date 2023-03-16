@@ -21,9 +21,9 @@ import * as api from '../services/api.jsx';
 
   export const getCourse = createAsyncThunk(
     'preview-courses/getCourse',
-    async (courseId, thunkAPI) => {
+    async (id, thunkAPI) => {
       try {
-        const data = await api.getCourse(courseId);
+        const data = await api.getCourse(id);
   
         return data;
       } catch (e) {

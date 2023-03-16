@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const List = styled.ul`
   margin-top: 10px;
@@ -30,35 +31,22 @@ export const List = styled.ul`
 
 export const Item = styled.li`
   padding: 20px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
   border-radius: 10px;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
-  min-width: 260px;
 
-  @media screen and (min-width: 480px) {
-    gap: 10px;
-    min-width: 420px;
-  }
 
   @media screen and (min-width: 768px) {
     padding: 30px 30px;
-    gap: 15px;
-    min-width: 628px;
   }
 
   @media screen and (min-width: 1280px) {
     padding: 30px 20px;
-    min-width: calc((100% - 120px) / 2);
-    min-height: 480px;
-    width: calc((100% - 120px) / 2);
   }
 
-  &:hover  {
+  &:hover {
     box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.5);
   }
-  &:focus  {
+  &:focus {
     box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.5);
   }
 `;
@@ -109,4 +97,30 @@ export const Text = styled.p`
 
 export const Span = styled.span`
   font-weight: 400;
+`;
+
+export const StyledNavLink = styled(NavLink)`
+  color: #000;
+  outline: none;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 260px;
+
+@media screen and (min-width: 480px) {
+  min-width: 420px;
+}
+
+@media screen and (min-width: 768px) {
+  gap: 15px;
+  min-width: 628px;
+}
+
+@media screen and (min-width: 1280px) {
+  gap: 20px;
+  min-width: calc((100% - 120px) / 2);
+  min-height: 500px;
+  width: 540px;
+}
 `;
