@@ -35,7 +35,7 @@ const Course = () => {
       <h1>{title}</h1>
       <ReactPlayer
         ref={player}
-        // url={lessons && lessons[0]?.link}
+        url={lessons && lessons[0]?.link}
         controls={true}
         volume={0.5}
         pip={true}
