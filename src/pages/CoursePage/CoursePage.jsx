@@ -1,4 +1,5 @@
 import Course from 'components/Course/Course';
+import { Link } from 'react-router-dom';
 import { Section } from '../CoursesPage/CoursesPage.styled';
 
 // const { useSelector } = require('react-redux');
@@ -9,6 +10,9 @@ const CoursePage = () => {
 
   return (
     <Section>
+      <Link to="/" style={{fontSize: 20, fontWeight: 500, color: 'black', padding: 20, display: 'block'}}>
+      ⬅ Go back
+    </Link>
       <Course />
     </Section>
   );
