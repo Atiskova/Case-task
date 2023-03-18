@@ -1,14 +1,16 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { getCourses, getCourse } from './operation';
+import { getCourses, getCourse, refreshCourse } from './operation';
 
 const initialState = {
-    courses: [],
-    course: {},
-    status: 'idle',
-    error: null,
-  };
+  courses: [],
+  course: {},
+  page: 0,
+  perPage: 10,
+  status: 'idle',
+  error: null,
+};
 
-  const extraAction = [getCourses, getCourse];
+const extraAction = [getCourses, getCourse];
 
 const getAction = type => extraAction.map(action => action[type]);
 
@@ -31,12 +33,21 @@ const coursesSlice = createSlice({
 
   initialState,
 
+  reducers: {
+    setPage: (state, { payload }) => {
+      state.page = payload;
+    },
+  },
+
   extraReducers: builder => {
     builder
       .addCase(getCourses.fulfilled, (state, { payload }) => {
         state.courses = payload;
       })
       .addCase(getCourse.fulfilled, (state, { payload }) => {
+        state.course = payload;
+      })
+      .addCase(refreshCourse.fulfilled, (state, { payload }) => {
         state.course = payload;
       })
       .addMatcher(isAnyOf(...getAction('pending')), handlePending)
@@ -46,4 +57,4 @@ const coursesSlice = createSlice({
 });
 
 export const coursesReducer = coursesSlice.reducer;
-
+export const { setPage } = coursesSlice.actions;

@@ -1,9 +1,12 @@
-
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { NavLink, useLocation } from 'react-router-dom';
 import { getCourses } from 'redux/operation';
-import { selectCourses, selectLoading } from 'redux/selectors';
+import {
+  selectCourses,
+  selectLoading,
+  selectPage,
+  selectPerPage,
+} from 'redux/selectors';
 import {
   List,
   Item,
@@ -14,24 +17,29 @@ import {
   StyledNavLink,
 } from './Courses.styled';
 import { Loader } from 'components/Loader/Loader';
+import { Pagination } from 'components/Pagination/Pagination';
 
 const Courses = () => {
   const courses = useSelector(selectCourses);
   const dispatch = useDispatch();
   const status = useSelector(selectLoading);
-  // const location = useLocation();
+  const page = useSelector(selectPage);
+  const itemsPerPage = useSelector(selectPerPage);
+  const endOffset = page + itemsPerPage;
+  const currentTransactions = courses.slice(page, endOffset);
+  const elementToScroll = useRef(null);
 
   useEffect(() => {
     dispatch(getCourses());
   }, [dispatch]);
 
+
   return (
-    <div>
+    <div ref={elementToScroll}>
       {status === 'pending' && !courses && <Loader />}
       <List>
-        {courses.map(course => (
+        {currentTransactions.map(course => (
           <Item key={course.id}>
-            {/* <NavLink state={{ from: location }} to={'/:' + course.id}></NavLink> */}
             <StyledNavLink to={`/${course.id}`}>
               <Image
                 src={course.previewImageLink + '/cover.webp'}
@@ -57,10 +65,11 @@ const Courses = () => {
           </Item>
         ))}
       </List>
+      {courses.length > itemsPerPage && (
+        <Pagination scrollAnchor={elementToScroll} />
+      )}
     </div>
   );
 };
-
-
 
 export default Courses;

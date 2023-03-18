@@ -1,18 +1,17 @@
 import Course from 'components/Course/Course';
-import { Link } from 'react-router-dom';
-import { Section } from '../CoursesPage/CoursesPage.styled';
+import { useDispatch } from 'react-redux';
+import { refreshCourse } from 'redux/operation';
+import { Section, LinkStyled } from '../CoursesPage/CoursesPage.styled';
 
-// const { useSelector } = require('react-redux');
-// const { selectCourses, selectLoading } = require('redux/selectors');
 
 const CoursePage = () => {
-  //   const courses = useSelector(selectCourses);
+  const dispatch = useDispatch();
 
   return (
     <Section>
-      <Link to="/" style={{fontSize: 20, fontWeight: 500, color: 'black', padding: 20, display: 'block'}}>
+      <LinkStyled to="/" onClick={() => dispatch(refreshCourse())} >
       ⬅ Go back
-    </Link>
+    </LinkStyled>
       <Course />
     </Section>
   );
