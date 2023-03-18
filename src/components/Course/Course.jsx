@@ -15,6 +15,8 @@ import {
   LockedText,
   UnlockedText,
   LessonsWrapper,
+  LessonsTitle,
+  List,
 } from './Course.styyled';
 import { useMediaQuery } from 'react-responsive';
 import ReactPlayer from 'react-player';
@@ -77,7 +79,7 @@ const Course = () => {
         </Sidebar>
         {lessons && (
           <LessonsWrapper>
-            {lessons && <h2>Lesson {order}</h2>}
+            {lessons && <LessonsTitle>Lesson {order}</LessonsTitle>}
             {isMobile ? (
               <ReactPlayer
                 ref={player}
@@ -110,7 +112,7 @@ const Course = () => {
               />
             )}
 
-            <ul>
+            <List>
               {lessons?.map(lesson => (
                 <li key={lesson.id} onClick={() => handlePutVideo(lesson)}>
                   {lesson.status === 'locked' ? (
@@ -124,7 +126,7 @@ const Course = () => {
                   )}
                 </li>
               ))}
-            </ul>
+            </List>
           </LessonsWrapper>
         )}
       </Wrapper>

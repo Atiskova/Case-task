@@ -92,7 +92,11 @@ margin-right: auto;
 `;
 
 export const List = styled.ul`
-  font-weight: 400;
+  margin-top: 10px;
+`;
+
+export const LessonsTitle = styled.h2`
+  margin-bottom: 10px;
 `;
 
 export const LockedText = styled.p`
