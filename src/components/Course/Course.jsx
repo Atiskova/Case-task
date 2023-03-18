@@ -30,7 +30,8 @@ const Course = () => {
   const { courseId } = useParams();
   const player = useRef();
   const [video, setVideo] = useState('');
-  const [order, setOrder] = useState(1);
+  const [, setOrder] = useState(1);
+  const [videoTitle, setVideoTitle] = useState('')
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   useEffect(() => {
@@ -38,13 +39,19 @@ const Course = () => {
   }, [dispatch, courseId]);
 
   useEffect(() => {
-    lessons && setVideo(lessons[0]?.link);
+    if(lessons && lessons[0]?.status === 'unlocked') {setVideo(lessons[0]?.link)};
+    if(lessons && lessons[0]?.status !== 'unlocked') {setVideo(previewImageLink + '/' + lessons[0]?.order + '.webp')};
+  }, [lessons, previewImageLink]);
+
+  useEffect(() => {
+    lessons && setVideoTitle(lessons[0]?.title);
   }, [lessons]);
 
   const handlePutVideo = lesson => {
     if (lesson.status === 'unlocked' && lesson.link !== video) {
       setVideo(lesson.link);
       setOrder(lesson.order);
+      setVideoTitle(lesson.title)
     }
   };
 
@@ -79,38 +86,40 @@ const Course = () => {
         </Sidebar>
         {lessons && (
           <LessonsWrapper>
-            {lessons && <LessonsTitle>Lesson {order}</LessonsTitle>}
-            {isMobile ? (
-              <ReactPlayer
-                ref={player}
-                width={280}
-                height={158}
-                url={video}
-                controls={true}
-                volume={0.5}
-                pip={true}
-                stopOnUnmount={false}
-                onReady={() => player.getInternalPlayer('hls').getCurrentTime()}
-                played={0}
-                loaded={0}
-                playbackRate={1}
-              />
-            ) : (
-              <ReactPlayer
-                ref={player}
-                width={640}
-                height={360}
-                url={video}
-                controls={true}
-                volume={0.5}
-                pip={true}
-                stopOnUnmount={false}
-                onReady={() => player.getInternalPlayer('hls').getCurrentTime()}
-                played={0}
-                loaded={0}
-                playbackRate={1}
-              />
-            )}
+            {lessons && <LessonsTitle>{videoTitle}</LessonsTitle>}
+            <div style={{marginLeft: 'auto', marginRight: 'auto'}}>
+              {isMobile ? (
+                <ReactPlayer
+                  ref={player}
+                  width={280}
+                  height={158}
+                  url={video}
+                  controls={true}
+                  volume={0.5}
+                  pip={true}
+                  stopOnUnmount={false}
+                  onReady={() => player.getInternalPlayer('hls').getCurrentTime()}
+                  played={0}
+                  loaded={0}
+                  playbackRate={1}
+                />
+              ) : (
+                <ReactPlayer
+                  ref={player}
+                  width={640}
+                  height={360}
+                  url={video}
+                  controls={true}
+                  volume={0.5}
+                  pip={true}
+                  stopOnUnmount={false}
+                  onReady={() => player.getInternalPlayer('hls').getCurrentTime()}
+                  played={0}
+                  loaded={0}
+                  playbackRate={1}
+                />
+              )}
+            </div>
 
             <List>
               {lessons?.map(lesson => (
